@@ -2,114 +2,114 @@
 PHP Function Library Recycle and Restoring Database (Also Using Constraint)
 
 <?php
-/*
-index.php       --->     recycler.php                       --->    recyclerRedirect.php                    ---> index.php (done)
-$_GET['id']              -grab data from SQL table                  -DELETE data in the origin table 
-                         -data grabbed, processed                   -ReCREATE constraint which was deleted
-                          into a ready array
-                          using array_key(), array_unique(),
-                          array_diff()
-                         -then converted using foreach(){}
-                         -INSERT the Data into recycle table
-                         -Delete constraint of any related
+///*
+//index.php       --->     recycler.php                       --->    recyclerRedirect.php                    ---> index.php (done)
+//$_GET['id']              -grab data from SQL table                  -DELETE data in the origin table 
+//                         -data grabbed, processed                   -ReCREATE constraint which was deleted
+//                          into a ready array
+//                          using array_key(), array_unique(),
+//                          array_diff()
+//                         -then converted using foreach(){}
+//                         -INSERT the Data into recycle table
+//                         -Delete constraint of any related
 */
 /*----------------------------------------------------------
-
-Fungsi ini untuk memindahkan data secara otomatis 
-dari table yang berada database ERP ke dalam table yang berada di database
-
-
-dari halaman sebelumnya kita akan ambil data dari superglobal $_GET
-    $id             = @$_GET['recycleid'];
-
-isi dari recycer.php
-
-INCLUSION
-
-    include "../server.php";                //for call the server
-    include "../htmlheadjquery.php";        //for jquery animation blink, and css typing
-    include "../config.php";                //for connecting into primary database
-    include "../configrecycler.php";        //for connecting into secondary database
-    include "../phpFunctionLibrary/moveToRecycler.php"
-
-VARIABLE
-    contoh stating variable:
-
-    $id             = @$_GET['recycleid'];
-    $columnID       = 'ColorID';
-    $table          = 'factory.colortable';
-    $tableRecycler  = 'recycler.colortable';
-----------------------------------------------------------*/
-?>
-<!--
+//
+//Fungsi ini untuk memindahkan data secara otomatis 
+//dari table yang berada database ERP ke dalam table yang berada di database
+//
+//
+//dari halaman sebelumnya kita akan ambil data dari superglobal $_GET
+//    $id             = @$_GET['recycleid'];
+//
+//isi dari recycer.php
+//
+//INCLUSION
+//
+//    include "../server.php";                //for call the server
+//    include "../htmlheadjquery.php";        //for jquery animation blink, and css typing
+//    include "../config.php";                //for connecting into primary database
+//    include "../configrecycler.php";        //for connecting into secondary database
+//    include "../phpFunctionLibrary/moveToRecycler.php"
+//
+//VARIABLE
+//    contoh stating variable:
+//
+//    $id             = @$_GET['recycleid'];
+//    $columnID       = 'ColorID';
+//    $table          = 'factory.colortable';
+//    $tableRecycler  = 'recycler.colortable';
+//----------------------------------------------------------*/
+//?>
+//<!--
 //===============================================================================================
 //                                        1 of 2
 //                                    Fungsi Recycle
 //                include_once "../phpFunctionLibrary/moveToRecycler.php";
 //                                  ubah point 1 s.d 4
 //===============================================================================================
--->
-<div class="typewriter"><!--For CSS Typewriting Efect-->
-        <?php
-        //calling Recycler Function
-                $id             = @$_GET['recycleid'];          // 1. isi dengan 'id' yang mau direcycle
-                $columnID       = 'StyleID';                    // 2. isi dengan 'nama kolom' dari id yang mau direcycle
-                $table          = 'factory.styletable';         // 3. database asal
-                $tableRecycler  = 'recycler.styletable';        // 4. database tujuan        
-
-                moveToRecycler($id,$table,$tableRecycler,$columnID,$con,$conRecycler);
-        ?>
-</div>
-<!--
-//-----------------------------------------------------------------------------------------------
--->
-
-<?php
-
-
-function moveToRecycler($id,$table,$tableRecycler,$columnID,$con,$conRecycler){
-
-
+//-->
+//<div class="typewriter"><!--For CSS Typewriting Efect-->
+//        <?php
+//        //calling Recycler Function
+//                $id             = @$_GET['recycleid'];          // 1. isi dengan 'id' yang mau direcycle
+//                $columnID       = 'StyleID';                    // 2. isi dengan 'nama kolom' dari id yang mau direcycle
+//                $table          = 'factory.styletable';         // 3. database asal
+//                $tableRecycler  = 'recycler.styletable';        // 4. database tujuan        
+//
+//                moveToRecycler($id,$table,$tableRecycler,$columnID,$con,$conRecycler);
+//        ?>
+//</div>
+//<!--
+////-----------------------------------------------------------------------------------------------
+//-->
+//
+//<?php
+//
+//
+//function moveToRecycler($id,$table,$tableRecycler,$columnID,$con,$conRecycler){
+//
+//
 //inclusion this must be changed
-include_once "../server.php";                //for call the server
-include_once "../htmlheadjquery.php";        //for jquery animation blink, and css typing
-include_once "../config.php";                //for connecting into primary database
-include_once "../configrecycler.php";        //for connecting into secondary database
-
-
-        echo "<br>";
-        echo $id;
-        echo "<br>";
-
-
-$sql="SELECT * FROM $table WHERE $columnID='$id'";
-$query=mysqli_query($con,$sql);
-$data=mysqli_fetch_array($query);
-
-        echo "<b>Array From SQL Query</b><br>";
-        echo "<p>";
-        print_r($data);
-        echo "</p>";
-        echo "<br>";
-        /*
-        hasilnya seperti ini
-        $data = Array ( 
-
-            Array Keys         Array Values
-
-            [0]             => COL6006599fe3a79 
-            [ColorID]       => COL6006599fe3a79 
-            [1]             => STY5ff0fb4bf050b 
-            [StyleID]       => STY5ff0fb4bf050b 
-            [2]             => Ebony 
-            [Color]         => Ebony 
-            [3]             => FCO5ffa3a9a4461f 
-            [FabricationID] => FCO5ffa3a9a4461f 
-            [4]             => 4.92000 
-            [FOB]           => 4.92000 
-            [5]             => sketch_STY5ff0fb4bf050b_Ebony.png 
-            [ImageName]     => sketch_STY5ff0fb4bf050b_Ebony.png 
-            [6]             => 2021-01-19 11:26:00 
+//include_once "../server.php";                //for call the server
+//include_once "../htmlheadjquery.php";        //for jquery animation blink, and css typing
+//include_once "../config.php";                //for connecting into primary database
+//include_once "../configrecycler.php";        //for connecting into secondary database
+//
+//
+//        echo "<br>";
+//        echo $id;
+//        echo "<br>";
+//
+//
+//$sql="SELECT * FROM $table WHERE $columnID='$id'";
+//$query=mysqli_query($con,$sql);
+//$data=mysqli_fetch_array($query);
+//
+//        echo "<b>Array From SQL Query</b><br>";
+//        echo "<p>";
+//        print_r($data);
+//        echo "</p>";
+//        echo "<br>";
+//        /*
+//        hasilnya seperti ini
+//        $data = Array ( 
+//
+//            Array Keys         Array Values
+//
+//            [0]             => COL6006599fe3a79 
+//            [ColorID]       => COL6006599fe3a79 
+//            [1]             => STY5ff0fb4bf050b 
+//            [StyleID]       => STY5ff0fb4bf050b 
+//            [2]             => Ebony 
+//            [Color]         => Ebony 
+//            [3]             => FCO5ffa3a9a4461f 
+//            [FabricationID] => FCO5ffa3a9a4461f 
+//            [4]             => 4.92000 
+//            [FOB]           => 4.92000 
+//            [5]             => sketch_STY5ff0fb4bf050b_Ebony.png 
+//            [ImageName]     => sketch_STY5ff0fb4bf050b_Ebony.png 
+//            [6]             => 2021-01-19 11:26:00 
             [CreatedOn]     => 2021-01-19 11:26:00 
             )
         */
