@@ -1,6 +1,8 @@
 # PHP-Function-Library-Recycle-and-Restoring-Database-Full
 PHP Function Library Recycle and Restoring Database (Also Using Constraint)
 
+<?php
+/*
 index.php       --->     recycler.php                       --->    recyclerRedirect.php                    ---> index.php (done)
 $_GET['id']              -grab data from SQL table                  -DELETE data in the origin table 
                          -data grabbed, processed                   -ReCREATE constraint which was deleted
@@ -10,7 +12,7 @@ $_GET['id']              -grab data from SQL table                  -DELETE data
                          -then converted using foreach(){}
                          -INSERT the Data into recycle table
                          -Delete constraint of any related
-
+*/
 /*----------------------------------------------------------
 
 Fungsi ini untuk memindahkan data secara otomatis 
@@ -38,7 +40,7 @@ VARIABLE
     $table          = 'factory.colortable';
     $tableRecycler  = 'recycler.colortable';
 ----------------------------------------------------------*/
-
+?>
 <!--
 //===============================================================================================
 //                                        1 of 2
@@ -62,7 +64,7 @@ VARIABLE
 //-----------------------------------------------------------------------------------------------
 -->
 
-
+<?php
 
 
 function moveToRecycler($id,$table,$tableRecycler,$columnID,$con,$conRecycler){
@@ -225,7 +227,7 @@ echo "</p>";
 
 
 }
-
+?>
 <!--
 //===============================================================================================
 //                                        2 of 2
@@ -246,5 +248,6 @@ echo "</p>";
 <!--
 //-----------------------------------------------------------------------------------------------
 -->
-
+<?php
 header( "refresh:1.5; url=recyclerRedirect.php?id=".$id."&table=".$table."&columnID=".$columnID."" ); 
+?>
